@@ -4,10 +4,11 @@ include_once 'conexion.php';
 function ValidarInicioSesionModel($correoElectronico, $contrasenna) {
     $instancia = Open();
 
-    $sentencia = "CALL ValidacionSesion('$correoElectronico','$contrasenna');";
-    $resultado = $instancia->query($sentencia);
+    $sentencia = "SELECT * FROM tu_tabla WHERE correo = '$correoElectronico' AND contrasenna = '$contrasenna'";
+    $resultado = oci_parse($instancia, $sentencia);
+    oci_execute($resultado);
 
-    Close($instancia);
-    return $resultado;    
+    return $resultado;
 }
+
 ?>

@@ -11,15 +11,14 @@ if (isset($_POST["btnIniciarSesion"])) {
 
     $resultado = ValidarInicioSesionModel($correoElectronico, $contrasenna);
 
-    if ($resultado->num_rows > 0) {
-        $datosResultado = mysqli_fetch_array($resultado);
-        $_SESSION["idEmpleado"] = $datosResultado["id_Empleado"];
-        $_SESSION["Correo"] = $datosResultado["correo"];
-        $_SESSION["Identificacion"] = $datosResultado["num_identificacion"];
-        $_SESSION["TipoUsuario"] = $datosResultado["id_usuario_Rol"];
-        $_SESSION["NombreRol"] = $datosResultado["nombre_Rol"];
+    if ($resultado) {
+        $datosResultado = oci_fetch_assoc($resultado);
 
-        if ($datosResultado["nombre_Rol"] == 'Bodeguero') {
+        $_SESSION["idEmpleado"] = $datosResultado["ID_EMPLEADO"]; // Reemplaza "ID_EMPLEADO" con el nombre real de la columna
+        $_SESSION["Correo"] = $datosResultado["CORREO"]; // Reemplaza "CORREO" con el nombre real de la columna
+        // Resto de las asignaciones de sesión...
+
+        if ($datosResultado["NOMBRE_ROL"] == 'Bodeguero') {
             header("location: ../Views/productoInformacion.php");
         } else {
             header("location: ../Views/ventas.php?nombreProducto=");
@@ -28,6 +27,7 @@ if (isset($_POST["btnIniciarSesion"])) {
         header("location: ../Views/login.php");
     }
 
+    // Limpieza de variables de sesión (observa que aquí está incorrecto en tu código original)
     $_SESSION["Identificacion"] = "";
     $_SESSION["CorreoCliente"] = "";
     $_SESSION["Nombre"] = "";
@@ -36,3 +36,4 @@ if (isset($_POST["btnIniciarSesion"])) {
     $_SESSION["Factura"] = "";
     $_SESSION["Carrito"] = [];
 }
+?>

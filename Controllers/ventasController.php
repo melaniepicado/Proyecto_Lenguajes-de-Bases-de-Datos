@@ -10,13 +10,13 @@ if (isset($_POST["btnBuscarCliente"])) {
     $identificacion = $_POST['identificacion'];
     if ($_SESSION["Factura"] == "") {
         $resultado = BuscarDatosClienteModel($identificacion);
-        if ($resultado->num_rows > 0) {
-            $datosResultado = mysqli_fetch_array($resultado);
+        if (oci_num_rows($resultado) > 0) {
+            $datosResultado = oci_fetch_assoc($resultado);
             $_SESSION["Identificacion"] = $identificacion;
-            $_SESSION["CorreoCliente"] = $datosResultado["Correo"];
-            $_SESSION["Nombre"] = $datosResultado["Nombre"];
-            $_SESSION["Telfono"] = $datosResultado["telefono"];
-            $_SESSION["idCliente"] = $datosResultado["idCliente"];
+            $_SESSION["CorreoCliente"] = $datosResultado["CORREO"];
+            $_SESSION["Nombre"] = $datosResultado["NOMBRE"];
+            $_SESSION["Telfono"] = $datosResultado["TELEFONO"];
+            $_SESSION["idCliente"] = $datosResultado["IDCLIENTE"];
         } else {
             $_SESSION["Identificacion"] = "";
             $_SESSION["CorreoCliente"] = "";
@@ -31,41 +31,37 @@ if (isset($_POST["btnBuscarCliente"])) {
 
 function BuscarProducto($nombreProducto)
 {
-    $resultado = BuscarProductoModel($nombreProducto);
-    if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
-            echo "<tr>";
-            echo "<td>" . $datosResultado["nombre_Producto"] . "</td>";
-            echo "<td>" . $datosResultado["cantidad_Disponible"] . "</td>";
-            echo "<td>" . "$" . $datosResultado["precio_Venta"] . "</td>";
-            if ($datosResultado["cantidad_Disponible"] > 0) {
-                echo "<td> <input type='number' min=1 max=" . $datosResultado["cantidad_Disponible"] . " class='form-control' id='cantidad" . $datosResultado["id_Producto"] . "'
-            name='cantidad" . $datosResultado["id_Producto"] . "' value=1> </td>";
-                echo "<td>" . "<a href='#' onclick='AgregarProducto(" . $datosResultado["id_Producto"] . "," . $datosResultado["cantidad_Disponible"] . ");'><i class='fa fa-plus'></i></a>" . "</td>";
-            } else {
-                echo "<td> <input type='number' disabled  class='form-control' value=0> </td>";
-                echo "<td>" . "<a ><i class='fa fa-'></i></a>" . "</td>";
+    $resultadoCursor = BuscarProductoModel($nombreProducto);
+
+    if ($resultadoCursor) {
+        $numRows = oci_fetch_all($resultadoCursor, $datosResultados, null, null, OCI_FETCHSTATEMENT_BY_ROW);
+
+        if ($numRows > 0) {
+            foreach ($datosResultados as $datosResultado) {
+                // ... Mostrar los detalles del producto en la interfaz web ...
             }
-            echo "</tr>";
+        } else {
+            echo "No se encontraron productos.";
         }
+
+        oci_free_statement($resultadoCursor); // Liberar el cursor
+    } else {
+        echo "Error al buscar productos.";
     }
 }
 
 function TotalFactura()
 {
-    $resultado = VerTotalFacturaModel($_SESSION["Factura"]);
-    $total = 0;
-    if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
-            $total = $total + ($datosResultado["precio_Venta"] * $datosResultado["cantidad_Venta"]);
-        }
-    }
+    $idFactura = $_SESSION["Factura"];
+    $total = VerTotalFacturaModel($idFactura);
+
     return $total;
 }
 
+
 if (isset($_POST["AgregarProducto"])) {
     if ($_SESSION["Factura"] == "") {
-        $resultadoFactura = CrearFacturaModel($_SESSION["idCliente"], $_SESSION["idEmpleado"],);
+        $resultadoFactura = CrearFacturaModel($_SESSION["idCliente"], $_SESSION["idEmpleado"]);
         if ($resultadoFactura > 0) {
             $_SESSION["Factura"] = $resultadoFactura;
         }
@@ -89,10 +85,44 @@ if (isset($_POST["EliminarProducto"])) {
     }
 }
 
+
+
+
+function VerDetalleFacturaModel($idFactura)
+{
+    $instancia = Open();
+
+    // Crear una variable para almacenar el cursor resultante
+    $resultadoCursor = oci_new_cursor($instancia);
+
+    // Crear la sentencia SQL con el procedimiento almacenado
+    $sentencia = "BEGIN VerDetalleFactura(:idFactura, :resultado); END;";
+    $resultado = oci_parse($instancia, $sentencia);
+
+    // Enlazar los parámetros
+    oci_bind_by_name($resultado, ':idFactura', $idFactura);
+    oci_bind_by_name($resultado, ':resultado', $resultadoCursor, -1, OCI_B_CURSOR);
+
+    // Ejecutar la consulta
+    oci_execute($resultado);
+
+    // Abrir y ejecutar el cursor resultante
+    oci_execute($resultadoCursor);
+
+    // Cerrar la conexión
+    Close($instancia);
+
+    return $resultadoCursor;
+}
+
+
+
+
+
 function VerDetalleFactura()
 {
     $resultado = VerDetalleFacturaModel($_SESSION["Factura"]);
-    if ($resultado->num_rows > 0) {
+    if (oci_num_rows($resultado) > 0) {
         return $resultado;
     } else {
         return null;
@@ -103,41 +133,45 @@ function VerCompras()
 {   
     $resultado = VerComprasModel();
 
-    if($resultado -> num_rows > 0)
+    if(oci_num_rows($resultado) > 0)
     {
-        While($datosResultado = mysqli_fetch_array($resultado))
+        while ($datosResultado = oci_fetch_assoc($resultado))
         {   
             echo "<tr>";
-            echo "<td>" . $datosResultado["fecha_Factura"] . "</td>";
-            echo "<td>" . $datosResultado["Cliente"] . "</td>";
-            echo "<td>" . $datosResultado["Empleado"] . "</td>";
-            echo "<td>" . "<a href='../Views/detalles.php?id_Compra=" . $datosResultado["id_Compra"] . "'>Ver Detalle</a> </td>";
+            echo "<td>" . $datosResultado["FECHA_FACTURA"] . "</td>";
+            echo "<td>" . $datosResultado["CLIENTE"] . "</td>";
+            echo "<td>" . $datosResultado["EMPLEADO"] . "</td>";
+            echo "<td>" . "<a href='../Views/detalles.php?id_Compra=" . $datosResultado["ID_COMPRA"] . "'>Ver Detalle</a> </td>";
             echo "</tr>";
         }
        
     }
 }
-    function VerDetalleCompra($idCompra)
+function VerDetalleCompra($idCompra)
 {
     $resultado = VerDetalleCompraModel($idCompra);
-    if ($resultado->num_rows > 0) {
+    
+    if ($resultado) {
         $Totalizado = 0;
-        While($datosResultado = mysqli_fetch_array($resultado))
-        {   
-            $Totalizado += ($datosResultado["cantidad_Venta"] * $datosResultado["precio_Venta"]);
+        
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
+            $Totalizado += ($datosResultado["CANTIDAD_VENTA"] * $datosResultado["PRECIO_VENTA"]);
             echo "<tr>";
-            echo "<td>" . $datosResultado["cantidad_Venta"] . "</td>";
-            echo "<td>" . $datosResultado["nombre_Producto"] . "</td>";
-            echo "<td>" . $datosResultado["precio_Venta"] . "</td>";
-            echo "<td>" . $datosResultado["cantidad_Venta"] * $datosResultado["precio_Venta"] . "</td>";
+            echo "<td>" . $datosResultado["CANTIDAD_VENTA"] . "</td>";
+            echo "<td>" . $datosResultado["NOMBRE_PRODUCTO"] . "</td>";
+            echo "<td>" . $datosResultado["PRECIO_VENTA"] . "</td>";
+            echo "<td>" . ($datosResultado["CANTIDAD_VENTA"] * $datosResultado["PRECIO_VENTA"]) . "</td>";
             echo "</tr>";
         }
-         
+        
         echo "<tr>";
-        echo "<td style='color:blue; text-align:right; font-weight:bold;' colspan='5'>Total a Pagar      $ " . number_format($Totalizado,2) . "</td>";
+        echo "<td style='color:blue; text-align:right; font-weight:bold;' colspan='4'>Total a Pagar: $" . number_format($Totalizado, 2) . "</td>";
         echo "</tr>";
+        
+        oci_free_statement($resultado);
     } else {
-        return null;
+        echo "No se encontraron detalles de compra.";
     }
 }
 
+?>

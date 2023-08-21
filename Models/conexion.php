@@ -18,20 +18,20 @@ function Close($instancia)
 function Open() {
     $usuario = 'Mlaken302528';
     $contrasena = '302528';
-    $servidor = 'orcl'; // Ejemplo: 'localhost/XE' para la edición Express de Oracle
-    $puerto = '1521'; // Por lo general, el puerto predeterminado es 1521
+    $base_de_datos = 'ORCL'; // Puede ser el nombre de la instancia o el servicio en tu tnsnames.ora
+    $host = 'localhost'; // Por lo general, localhost o el nombre de la máquina
 
-    $conexion = oci_connect($usuario, $contrasena, "$servidor:$puerto");
-    if (!$conexion) {
+    $instancia = oci_connect($usuario, $contrasena, "$host/$base_de_datos");
+    if (!$instancia) {
         $error = oci_error();
         trigger_error(htmlentities($error['Esta conexión no fue establecida correctament'], ENT_QUOTES), E_USER_ERROR);
     }
 
-    return $conexion;
+    return $instancia;
 }
 
-function Close($conexion) {
-    oci_close($conexion);
+function Close($instancia) {
+    oci_close($instancia);
 }
 
 ?>
