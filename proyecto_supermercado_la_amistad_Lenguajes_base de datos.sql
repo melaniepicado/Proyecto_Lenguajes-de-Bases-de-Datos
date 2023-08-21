@@ -1370,3 +1370,96 @@ BEGIN
     END LOOP;
 END;
 ------------------
+
+----PACKAGE----
+CREATE OR REPLACE PACKAGE paquete_super  AS
+  -- Procedimiento: ActivarCliente
+  PROCEDURE ActivarCliente (pIdCliente IN NUMBER);
+
+  -- Procedimiento: ActivarEmpleado
+  PROCEDURE ActivarEmpleado (pIdEmpleado IN NUMBER);
+
+  -- Procedimiento: ActualizarCliente
+  PROCEDURE ActualizarCliente (
+    pIdClientein IN NUMBER,
+    pCorreoElectronico IN VARCHAR2,
+    pIdentificacion IN NUMBER,
+    pNombre IN VARCHAR2,
+    pPrimerApellido IN VARCHAR2,
+    pSegundoApellido IN VARCHAR2,
+    pTelefono IN NUMBER,
+    pProvincia IN NUMBER,
+    pCanton IN NUMBER,
+    pDistrito IN NUMBER,
+    pOtrasSenales IN VARCHAR2
+  );
+
+  -- Procedimiento: ActualizarEmpleado
+  PROCEDURE ActualizarEmpleado (
+    pIdEmpleado         IN tb_empleado.id_Empleado%TYPE,
+    pCorreoElectronico  IN tb_empleado.correo%TYPE,
+    pIdentificacion     IN tb_empleado.num_identificacion%TYPE,
+    pNombre             IN tb_empleado.Nombre%TYPE,
+    pPrimerApellido     IN tb_empleado.PrimerApellido%TYPE,
+    pSegundoApellido    IN tb_empleado.SegundoApellido%TYPE,
+    pSalario            IN tb_empleado.Salario%TYPE,
+    pFechaNacimiento    IN tb_empleado.fecha_Nacimiento%TYPE,
+    pHorasLaborar       IN tb_empleado.horas_labor%TYPE,
+    pTelefono           IN tb_empleado.telefono%TYPE,
+    pProvincia          IN tb_direccion.Provincia%TYPE,
+    pCanton             IN tb_direccion.Canton%TYPE,
+    pDistrito           IN tb_direccion.Distrito%TYPE,
+    pOtrasSenales       IN tb_direccion.Otras_senas%TYPE,
+    pContrasenna        IN tb_empleado.contrasena%TYPE,
+    pRol                IN tb_empleado.id_usuario_Rol%TYPE
+  );
+
+  -- Procedimiento: ActualizarProducto
+  PROCEDURE ActualizarProducto (
+    pidProducto IN INT,
+    pNombre IN VARCHAR2,
+    pCantidad IN INT,
+    pPrecio IN NUMBER,
+    pDescripcionProducto IN VARCHAR2,
+    pProveedor IN INT
+  );
+
+  -- Procedimiento: BuscarDatosCliente
+  PROCEDURE BuscarDatosCliente (
+    pIdentificacion IN INT,
+    pCliente OUT SYS_REFCURSOR
+  );
+
+  -- Procedimiento: ActualizarProveedor
+  PROCEDURE ActualizarProveedor(
+    pIdProveedor IN NUMBER,
+    pCorreoElectronico IN VARCHAR2,
+    pIdentificacion IN NUMBER,
+    pNombre IN VARCHAR2,
+    pTelefono IN NUMBER,
+    pProvincia IN NUMBER,
+    pCanton IN NUMBER,
+    pDistrito IN NUMBER,
+    pOtrasSenales IN VARCHAR2
+  );
+
+  -- Procedimiento: AgregarProducto
+  PROCEDURE AgregarProducto(
+    pidProducto IN NUMBER,
+    pidFactura IN NUMBER,
+    pCantidadProducto IN NUMBER
+  );
+
+  -- Procedimiento: CrearFactura
+  PROCEDURE CrearFactura (
+    pidCliente IN INT,
+    pidEmpleado IN INT,
+    pidFactura OUT INT
+  );
+
+  -- Procedimiento: EliminarCliente
+  PROCEDURE EliminarCliente (
+    pIdCliente IN INT
+  );
+
+END paquete_super;
