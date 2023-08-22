@@ -134,7 +134,329 @@ CREATE TABLE tb_marca (
   nombre_Marca VARCHAR2(50)
 );
 
+----------------------------Triggers----------------------------
+--------------------------------------------------------
+--  DDL for Trigger TRG_CATEGORIA_ID
+--------------------------------------------------------
 
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_CATEGORIA_ID" 
+BEFORE INSERT ON tb_categoria
+FOR EACH ROW
+BEGIN
+  :NEW.id_Categoria := seq_categoria_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_CATEGORIA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_CLIENTE_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_CLIENTE_ID" 
+BEFORE INSERT ON tb_cliente
+FOR EACH ROW
+BEGIN
+  :NEW.idCliente := seq_cliente_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_CLIENTE_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DETALLE_FACTURA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DETALLE_FACTURA_ID" 
+BEFORE INSERT ON tb_detalle_factura
+FOR EACH ROW
+BEGIN
+  :NEW.id_detalleFactura := seq_detalle_factura_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DETALLE_FACTURA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DIRECCION_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DIRECCION_ID" 
+BEFORE INSERT ON tb_direccion
+FOR EACH ROW
+BEGIN
+  :NEW.id_Direccion := seq_direccion_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DIRECCION_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DISTRITO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DISTRITO_ID" 
+BEFORE INSERT ON tb_distrito
+FOR EACH ROW
+BEGIN
+  :NEW.id_Distrito := seq_distrito_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DISTRITO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_EMPLEADO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_EMPLEADO_ID" 
+BEFORE INSERT ON tb_empleado
+FOR EACH ROW
+BEGIN
+  :NEW.id_Empleado := seq_empleado_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_EMPLEADO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_FACTURA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_FACTURA_ID" 
+BEFORE INSERT ON tb_factura
+FOR EACH ROW
+BEGIN
+  :NEW.id_Factura := seq_factura_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_FACTURA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_LOTE_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_LOTE_ID" 
+BEFORE INSERT ON tb_lote
+FOR EACH ROW
+BEGIN
+  :NEW.id_Lote := seq_lote_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_LOTE_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_MARCA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_MARCA_ID" 
+BEFORE INSERT ON tb_marca
+FOR EACH ROW
+BEGIN
+  :NEW.id_Marca := seq_marca_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_MARCA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PRODUCTO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PRODUCTO_ID" 
+BEFORE INSERT ON tb_producto
+FOR EACH ROW
+BEGIN
+  :NEW.id_Producto := seq_producto_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_PRODUCTO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PROVEEDOR_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PROVEEDOR_ID" 
+BEFORE INSERT ON tb_proveedor
+FOR EACH ROW
+BEGIN
+  :NEW.id_Proveedor := seq_proveedor_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_PROVEEDOR_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PROVINCIA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PROVINCIA_ID" 
+BEFORE INSERT ON tb_provincia
+FOR EACH ROW
+BEGIN
+  :NEW.id_Provincia := seq_provincia_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_PROVINCIA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_USUARIO_ROL_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_USUARIO_ROL_ID" 
+BEFORE INSERT ON tb_usuario_rol
+FOR EACH ROW
+BEGIN
+  :NEW.id_usuario_Rol := seq_usuario_rol_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_USUARIO_ROL_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_CATEGORIA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_CATEGORIA_ID" 
+BEFORE INSERT ON tb_categoria
+FOR EACH ROW
+BEGIN
+  :NEW.id_Categoria := seq_categoria_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_CATEGORIA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_CLIENTE_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_CLIENTE_ID" 
+BEFORE INSERT ON tb_cliente
+FOR EACH ROW
+BEGIN
+  :NEW.idCliente := seq_cliente_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_CLIENTE_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DETALLE_FACTURA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DETALLE_FACTURA_ID" 
+BEFORE INSERT ON tb_detalle_factura
+FOR EACH ROW
+BEGIN
+  :NEW.id_detalleFactura := seq_detalle_factura_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DETALLE_FACTURA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DIRECCION_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DIRECCION_ID" 
+BEFORE INSERT ON tb_direccion
+FOR EACH ROW
+BEGIN
+  :NEW.id_Direccion := seq_direccion_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DIRECCION_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_DISTRITO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_DISTRITO_ID" 
+BEFORE INSERT ON tb_distrito
+FOR EACH ROW
+BEGIN
+  :NEW.id_Distrito := seq_distrito_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_DISTRITO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_EMPLEADO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_EMPLEADO_ID" 
+BEFORE INSERT ON tb_empleado
+FOR EACH ROW
+BEGIN
+  :NEW.id_Empleado := seq_empleado_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_EMPLEADO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_FACTURA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_FACTURA_ID" 
+BEFORE INSERT ON tb_factura
+FOR EACH ROW
+BEGIN
+  :NEW.id_Factura := seq_factura_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_FACTURA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_LOTE_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_LOTE_ID" 
+BEFORE INSERT ON tb_lote
+FOR EACH ROW
+BEGIN
+  :NEW.id_Lote := seq_lote_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_LOTE_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_MARCA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_MARCA_ID" 
+BEFORE INSERT ON tb_marca
+FOR EACH ROW
+BEGIN
+  :NEW.id_Marca := seq_marca_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_MARCA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PRODUCTO_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PRODUCTO_ID" 
+BEFORE INSERT ON tb_producto
+FOR EACH ROW
+BEGIN
+  :NEW.id_Producto := seq_producto_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_PRODUCTO_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PROVEEDOR_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PROVEEDOR_ID" 
+BEFORE INSERT ON tb_proveedor
+FOR EACH ROW
+BEGIN
+  :NEW.id_Proveedor := seq_proveedor_id.NEXTVAL;
+END;
+/
+ALTER TRIGGER "TRG_PROVEEDOR_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_PROVINCIA_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_PROVINCIA_ID" 
+BEFORE INSERT ON tb_provincia
+FOR EACH ROW
+BEGIN
+  :NEW.id_Provincia := seq_provincia_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_PROVINCIA_ID" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_USUARIO_ROL_ID
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TRG_USUARIO_ROL_ID" 
+BEFORE INSERT ON tb_usuario_rol
+FOR EACH ROW
+BEGIN
+  :NEW.id_usuario_Rol := seq_usuario_rol_id.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "TRG_USUARIO_ROL_ID" ENABLE;
 
 ----------------------------------------------Inserts-----------------------------------------------------------
 ----tb_provincia----
@@ -848,25 +1170,33 @@ CREATE OR REPLACE PROCEDURE BuscarProducto (
     pNombre IN VARCHAR2
 )
 IS
+    -- Declare a cursor to hold the query result
     CURSOR product_cursor IS
         SELECT id_Producto, nombre_Producto, cantidad_Disponible, precio_Venta
         FROM tb_Producto
         WHERE nombre_Producto = pNombre;
-
+        
+    -- Declare variables to store the fetched data
+    -- Replace the data types with appropriate ones for your columns
     vId_Producto tb_Producto.id_Producto%TYPE;
     vNombre_Producto tb_Producto.nombre_Producto%TYPE;
     vCantidad_Disponible tb_Producto.cantidad_Disponible%TYPE;
     vPrecio_Venta tb_Producto.precio_Venta%TYPE;
 BEGIN
     IF pNombre IS NULL OR pNombre = '' THEN
+        -- Fetch all products if the input pNombre is null or empty
         OPEN product_cursor;
     ELSE
+        -- Fetch products with the specified name
         OPEN product_cursor;
     END IF;
 
+    -- You can use the fetched data as needed in the rest of the procedure.
+    -- For example, you can process the data, insert it into another table, etc.
+    
+    -- Close the cursor after processing the data
     CLOSE product_cursor;
 END;
-
 -- Procedimiento: CrearFactura
 CREATE OR REPLACE PROCEDURE CrearFactura (
     pidCliente IN INT,
@@ -888,7 +1218,6 @@ BEGIN
     UPDATE tb_cliente SET estado = 0 WHERE idCliente = pIdCliente;
 END;
 /
-
 -- Procedimiento: EliminarProveedor
 CREATE OR REPLACE PROCEDURE EliminarProveedor (
     pIdProveedor IN INT
@@ -1056,15 +1385,21 @@ BEGIN
     VALUES (pNombre, pIdentificacion, pCorreoElectronico, pTelefono, id_Direccion, 1);
 END;
 /
-
 -- Procedimiento: obtenerCanton
 CREATE OR REPLACE PROCEDURE obtenerCanton (pProvincia IN NUMBER)
 AS
 BEGIN
+    -- Use a cursor to fetch the results of the SELECT query
     FOR canton_rec IN (SELECT id_Canton, Canton
                        FROM tb_canton
                        WHERE id_Provincia = pProvincia)
     LOOP
+        -- This loop will iterate over the result set but won't do anything with the data.
+        -- If you don't want to display or process the data, you can leave this loop empty.
+        -- If the loop is empty, you can remove it entirely.
+
+        -- You can perform any additional logic or processing here if needed.
+        -- For example, you can do something with each record in the loop, or just leave the loop empty.
         NULL;
     END LOOP;
 END;
@@ -1148,7 +1483,9 @@ BEGIN
         WHERE c.idCliente = pIdCliente
     )
     LOOP
+        -- You can use the fetched data as needed
         DBMS_OUTPUT.PUT_LINE('Cliente: ' || datos_cliente_rec.c_Nombre || ' ' || datos_cliente_rec.c_PrimerApellido);
+        -- You can similarly access other columns using the aliases
     END LOOP;
 END;
 /
@@ -1177,7 +1514,9 @@ BEGIN
         WHERE e.id_Empleado = pIdEmpleado
     )
     LOOP
+        -- You can use the fetched data as needed
         DBMS_OUTPUT.PUT_LINE('Empleado: ' || datos_empleado_rec.e_Nombre || ' ' || datos_empleado_rec.e_PrimerApellido);
+        -- You can similarly access other columns using the aliases
     END LOOP;
 END;
 /
@@ -1202,12 +1541,12 @@ BEGIN
         INNER JOIN tb_usuario_rol r ON r.id_usuario_Rol = c.id_usuario_Rol
     )
     LOOP
+        -- You can use the fetched data as needed
         DBMS_OUTPUT.PUT_LINE('Empleado: ' || datos_empleado_rec.Nombre || ' ' || datos_empleado_rec.PrimerApellido ||
                              ', Estado: ' || datos_empleado_rec.DescEstado);
     END LOOP;
 END;
 /
-
 -- Procedimiento: VerDatosProducto
 CREATE OR REPLACE PROCEDURE VerDatosProducto (pIdProducto IN NUMBER) AS
     vId_Producto tb_Producto.id_Producto%TYPE;
@@ -1236,7 +1575,9 @@ BEGIN
     INNER JOIN tb_categoria c ON p.id_Categoria = c.id_Categoria
     INNER JOIN tb_proveedor pv ON p.id_Proveedor = pv.id_Proveedor
     WHERE p.id_Producto = pIdProducto;
-
+    
+    -- Aquí podemos utilizar las variables (vId_Producto, vNombre_Producto, etc.) según las necesidades
+    -- Por ejemplo,  imprimirlos o utilizarlos en otras operaciones.
 END;
 
 -- Procedimiento: VerDatosProducto
@@ -1266,7 +1607,9 @@ BEGIN
     INNER JOIN tb_marca m ON p.id_Marca = m.id_Marca
     INNER JOIN tb_categoria c ON p.id_Categoria = c.id_Categoria
     INNER JOIN tb_proveedor pv ON p.id_Proveedor = pv.id_Proveedor;
-
+    
+    --  Aquí podemos utilizar las variables (vId_Producto, vNombre_Producto, etc.) según tus necesidades
+    -- Por ejemplo, imprimirlos o utilizarlos en otras operaciones.
 END;
 -- Procedimiento: VerDatosProveedor
 CREATE OR REPLACE PROCEDURE VerDatosProveedor(pIdProveedor IN NUMBER) AS
@@ -1291,6 +1634,8 @@ BEGIN
     INNER JOIN tb_Distrito di ON d.Distrito = di.id_Distrito
     WHERE c.id_Proveedor = pIdProveedor;
 
+    -- Aquí podemos utilizar las variables (vId_Proveedor, vNombreProveedor, etc.) según tus necesidades
+    -- Por ejemplo,  imprimirlos o utilizarlos en otras operaciones.
 END;
 /
 -- Procedimiento: VerDatosProveedores
@@ -1348,7 +1693,6 @@ BEGIN
 END;
 ------------------
 
-----PACKAGE----
 CREATE OR REPLACE PACKAGE paquete_super  AS
   -- Procedimiento: ActivarCliente
   PROCEDURE ActivarCliente (pIdCliente IN NUMBER);
