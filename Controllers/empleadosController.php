@@ -90,7 +90,7 @@ function VerProvincia()
 {
     $resultado = VerProvinciaModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<option value=" . $datosResultado["id_Provincia"] . ">" . $datosResultado["Provincia"] . "</option>";
         }
     }
@@ -100,7 +100,7 @@ function VerRol()
 {
     $resultado = VerRolModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<option value=" . $datosResultado["id_usuario_Rol"] . ">" . $datosResultado["nombre_rol"] . "</option>";
         }
     }
@@ -110,7 +110,7 @@ function VerDatosEmpleados()
 {
     $resultado = VerDatosEmpleadosModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<tr>";
             echo "<td>" . $datosResultado["num_identificacion"] . "</td>";
             echo "<td>" . $datosResultado["Nombre"] . "</td>";
@@ -159,7 +159,7 @@ if(isset($_POST["btnRecuperarCuenta"]))
 
     if($resultado -> num_rows > 0)
     {
-        $datosResultado = mysqli_fetch_array($resultado); 
+        $datosResultado = oci_fetch_assoc($resultado); 
         EnviarCorreo($correoElectronico,"Recuperación de contraseña","Su contraseña es: " . $datosResultado["contrasena"],null,null);
     }
     else
@@ -172,7 +172,7 @@ function VerDatosEmpleado($idEmpleado)
 {
     $resultado = VerDatosEmpleadoModel($idEmpleado);
     if ($resultado->num_rows > 0) {
-        return mysqli_fetch_array($resultado);
+        return oci_fetch_assoc($resultado);
     }
 }
 if (isset($_POST["EliminarEmpleado"])) {

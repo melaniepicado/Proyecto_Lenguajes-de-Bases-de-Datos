@@ -62,7 +62,7 @@ function VerProvincia()
 {
     $resultado = VerProvinciaModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<option value=" . $datosResultado["id_Provincia"] . ">" . $datosResultado["Provincia"] . "</option>";
         }
     }
@@ -72,7 +72,7 @@ function VerDatosProveedores()
 {
     $resultado = VerDatosProveedoresModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<tr>";
             echo "<td>" . $datosResultado["nombreProveedor"] . "</td>";
             echo "<td>" . $datosResultado["identificacion"] . "</td>";
@@ -98,7 +98,7 @@ function VerDatosProveedor($idProveedor)
 {
     $resultado = VerDatosProveedorModel($idProveedor);
     if ($resultado->num_rows > 0) {
-        return mysqli_fetch_array($resultado);
+        return oci_fetch_assoc($resultado);
     }
 }
 if (isset($_POST["EliminarProveedor"])) {

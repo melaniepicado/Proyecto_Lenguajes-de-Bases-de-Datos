@@ -140,7 +140,7 @@ $VerDetalleFactura = VerDetalleFactura();
                              echo "          <tbody>";
                                         if ($VerDetalleFactura != null) {
                                             
-                                            while ($datosResultado = mysqli_fetch_array($VerDetalleFactura)) {
+                                            while ($datosResultado = oci_fetch_assoc($VerDetalleFactura)) {
                                                 echo "<tr>";
                                                 echo "<td>" . $datosResultado["nombre_Producto"] . "</td>";
                                                 echo "<td>" . "$" . $datosResultado["precio_Venta"] . "</td>";

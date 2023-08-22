@@ -65,7 +65,7 @@ function VerProveedor()
 {
     $resultado = VerProveedorModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<option value=" . $datosResultado["id_Proveedor"] . ">" . $datosResultado["nombreProveedor"] . "</option>";
         }
     }
@@ -75,7 +75,7 @@ function VerDatosProductos()
 {
     $resultado = VerDatosProductosModel();
     if ($resultado->num_rows > 0) {
-        while ($datosResultado = mysqli_fetch_array($resultado)) {
+        while ($datosResultado = oci_fetch_assoc($resultado)) {
             echo "<tr>";
             echo "<td>" . $datosResultado["nombre_Producto"] . "</td>";
             echo "<td>" . $datosResultado["cantidad_Disponible"] . "</td>";
@@ -97,7 +97,7 @@ function VerDatosProducto($idProducto)
 {
     $resultado = VerDatosProcutoModel($idProducto);
     if ($resultado->num_rows > 0) {
-        return mysqli_fetch_array($resultado);
+        return oci_fetch_assoc($resultado);
     }
 }
 if (isset($_POST["ElimiarCliente"])) {
